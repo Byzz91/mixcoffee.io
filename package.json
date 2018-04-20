@@ -1,0 +1,22 @@
+{
+  "name": "mixcoffee.io",
+  "version": "1.0.0",
+  "description": "mixcoffee.io for web developer",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mixcoffee"
+  ],
+  "author": "eyedroot@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^1.8.4",
+    "iohook": "^0.1.15"
+  },
+  "devDependencies": {
+    "electron-log": "^2.2.14"
+  }
+}
