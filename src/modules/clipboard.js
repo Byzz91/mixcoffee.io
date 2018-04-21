@@ -31,6 +31,11 @@
         }, WATCHER_INTERVAL);
     }
 
+    /**
+     * private __listenerCall
+     * @param {String} enum{changed}
+     * @param {Object} parameters 
+     */
     function __listenerCall(type, parameters) {
         if (type in _listenerObjects && typeof _listenerObjects[type] === 'function') {
             (_listenerObjects[type])(parameters);

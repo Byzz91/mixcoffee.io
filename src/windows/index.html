@@ -5,11 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>mixcoffee.io</title>
+        <style>
+            body,
+            html {
+                margin: 0;
+                padding: 10px;
+            }
+        
+            #app {
+                overflow: hidden;
+                width: 100%;
+                min-height: 300px;
+                border-radius: 15px;
+                background-color: beige;
+                border: 1px solid #000;
+                box-sizing: border-box;
+            }
+        </style>
 </head>
 <body>
-    <h1>Hello, World</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <div id="app">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae labore necessitatibus eos laudantium ea quisquam pariatur consectetur doloribus, repellendus velit itaque ipsum iure laboriosam commodi nisi debitis voluptatem aut eum!
+    </div>
 </body>
 </html>

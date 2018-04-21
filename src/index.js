@@ -5,17 +5,17 @@ const { app, BrowserWindow } = require('electron');
 const clipboard = require('./modules/clipboard');
 
 let window;
-let clipboardWindow;
+// let clipboardWindow;
 
 /**
  * Create mainWindow
  */
 function createWindow() {
     window = new BrowserWindow({
-        width: 800, 
-        height: 600, 
-        // frame: false,
-        // transparent: true
+        width: 300, 
+        height: 500, 
+        frame: false,
+        transparent: true
     });
 
     window.loadURL(url.format({
@@ -31,23 +31,29 @@ function createWindow() {
 /**
  * Create clipboardWindow
  */
-function createClipboardWindow() {
-    clipboardWindow = new BrowserWindow({
-        parent: window,
-        width: 300,
-        height: 500,
-        frame: false,
-        transparent: true
-    });
+// function createClipboardWindow() {
+//     clipboardWindow = new BrowserWindow({
+//         parent: window,
+//         width: 300,
+//         height: 500,
+//         frame: true,
+//         transparent: true
+//     });
 
-    clipboardWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'windows/clipboard.html'),
-        protocol: "file:",
-        slashes: true
-    }));
+//     clipboardWindow.loadURL(url.format({
+//         pathname: path.join(__dirname, 'windows/clipboard.html'),
+//         protocol: "file:",
+//         slashes: true
+//     }));
 
-    clipboardWindow.setAlwaysOnTop(true);
-    clipboardWindow.show();
+//     clipboardWindow.show();
+// }
+
+function toFrontWindow() {
+    if (typeof window === 'object') {
+        window.setAlwaysOnTop(true);
+        window.setAlwaysOnTop(false);
+    }
 }
 
 /* ============= app ============== */
@@ -67,7 +73,7 @@ app.on('activate', () => {
 clipboard.on('changed', (data) => {
     log.info('-- text changed --');
     log.info('data', data);
-    createClipboardWindow();
+    toFrontWindow();
 });
 
 /* ============= clipboard ============== */
