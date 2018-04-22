@@ -7,6 +7,7 @@
     }
 })(module, function () {
     const { clipboard } = require('electron');
+    const isUrl = require('is-url');
     const log = require('electron-log');
     const WATCHER_INTERVAL = 50;
 
@@ -56,11 +57,39 @@
     }
 
     /**
+     * Intelligent Guess Data and return new type object
+     * @param {Object} data 
+     */
+    function _guess(data) {
+        return new Promise((resolve) => {
+            if (typeof data !== 'object') {
+                return data;
+            }
+
+            let __clone = JSON.parse(JSON.stringify(data));
+            let __type = 'plain';
+            let __additional = null;
+
+            if (true === isUrl(data.changed)) {
+                __type = 'url';
+            }
+
+            resolve({
+                type: __type,
+                before: __clone.before,
+                changed: __clone.changed,
+                addtional: __additional
+            });
+        });
+    }
+
+    /**
      * Public
      */
     return {
         watcher: _watcher,
         listen: _listen,
-        on: _listen
+        on: _listen,
+        guess: _guess
     }
 });

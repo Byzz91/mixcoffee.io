@@ -12,7 +12,30 @@
 </head>
 <body>
     <div id="app">
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse exercitationem laboriosam nulla laudantium voluptas consequuntur itaque aspernatur repudiandae quos nihil, quis fuga vitae obcaecati ratione eaque libero quidem ipsa! Non?</p>
+        <ul id="text-clipboard">
+        </ul>        
     </div>
+
+    <script>
+        const $ = require('jquery');
+        const ipcRenderer = require('electron').ipcRenderer;
+        const clipboard = require('../modules/clipboard');
+        const elClipboardText = document.querySelector('#text-clipboard');
+
+        $('window').on('contextmenu', (e) => e.preventDefault() );
+
+        ipcRenderer.on('clipboard-text', async (eventEmitter, data) => {
+            let guessData = await clipboard.guess(data);
+
+            switch (guessData.type) {
+                case 'url':
+                    console.log('url', guessData);
+                    break;
+                case 'plain':
+                default:
+                    console.log('plain', guessData);
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,58 +1,40 @@
 const log = require('electron-log');
+const $ = require('jquery');
 const path = require('path');
 const url = require('url');
 const { app, BrowserWindow } = require('electron');
 const clipboard = require('./modules/clipboard');
 
-let window;
-// let clipboardWindow;
+let mainWindow;
 
 /**
  * Create mainWindow
  */
 function createWindow() {
-    window = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         width: 300, 
         height: 500, 
         frame: false,
         transparent: true
     });
 
-    window.loadURL(url.format({
-        "pathname": path.join(__dirname, 'windows/index.html'),
+    mainWindow.loadURL(url.format({
+        "pathname": path.join(__dirname, 'windows/clipboard.html'),
         "protocol": "file:",
         "slashes": true
     }));
 
-    window.webContents.openDevTools();
-    window.on('closed', () => window = null);
+    mainWindow.webContents.openDevTools();
+    mainWindow.on('closed', () => window = null);
 }
 
 /**
- * Create clipboardWindow
+ * toFrontWindow
  */
-// function createClipboardWindow() {
-//     clipboardWindow = new BrowserWindow({
-//         parent: window,
-//         width: 300,
-//         height: 500,
-//         frame: true,
-//         transparent: true
-//     });
-
-//     clipboardWindow.loadURL(url.format({
-//         pathname: path.join(__dirname, 'windows/clipboard.html'),
-//         protocol: "file:",
-//         slashes: true
-//     }));
-
-//     clipboardWindow.show();
-// }
-
 function toFrontWindow() {
-    if (typeof window === 'object') {
-        window.setAlwaysOnTop(true);
-        window.setAlwaysOnTop(false);
+    if (typeof mainWindow === 'object') {
+        mainWindow.setAlwaysOnTop(true);
+        mainWindow.setAlwaysOnTop(false);
     }
 }
 
@@ -65,7 +47,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-    if (window === null) {
+    if (mainWindow === null) {
         createWindow();
     }
 });
@@ -73,6 +55,8 @@ app.on('activate', () => {
 clipboard.on('changed', (data) => {
     log.info('-- text changed --');
     log.info('data', data);
+
+    mainWindow.webContents.send('clipboard-text', data);
     toFrontWindow();
 });
 

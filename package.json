@@ -14,9 +14,13 @@
   "license": "ISC",
   "dependencies": {
     "electron": "^1.8.4",
-    "iohook": "^0.1.15"
+    "iohook": "^0.1.15",
+    "is-url": "^1.2.4",
+    "jquery": "^3.3.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "electron-log": "^2.2.14"
   }
 }
